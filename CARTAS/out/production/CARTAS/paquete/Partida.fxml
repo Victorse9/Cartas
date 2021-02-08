@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorPartida">
+   <children>
+      <ImageView fitHeight="841.0" fitWidth="1315.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/fondo1.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnAtacar" disable="true" layoutX="971.0" layoutY="726.0" mnemonicParsing="false" onAction="#atacar" prefHeight="59.0" prefWidth="132.0" style="-fx-background-color: black;" text="ATACAR" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <RadioButton fx:id="r1" disable="true" layoutX="521.0" layoutY="292.0" mnemonicParsing="false">
+         <toggleGroup>
+            <ToggleGroup fx:id="grupo1" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="r2" disable="true" layoutX="743.0" layoutY="292.0" mnemonicParsing="false" toggleGroup="$grupo1" />
+      <RadioButton fx:id="r3" disable="true" layoutX="964.0" layoutY="294.0" mnemonicParsing="false" toggleGroup="$grupo1" />
+      <RadioButton fx:id="r4" disable="true" layoutX="1184.0" layoutY="298.0" mnemonicParsing="false" toggleGroup="$grupo1" />
+      <RadioButton fx:id="r5" disable="true" layoutX="521.0" layoutY="685.0" mnemonicParsing="false">
+         <toggleGroup>
+            <ToggleGroup fx:id="grupo2" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="r6" disable="true" layoutX="751.0" layoutY="685.0" mnemonicParsing="false" toggleGroup="$grupo2" />
+      <RadioButton fx:id="r7" disable="true" layoutX="972.0" layoutY="685.0" mnemonicParsing="false" toggleGroup="$grupo2" />
+      <RadioButton fx:id="r8" disable="true" layoutX="1184.0" layoutY="682.0" mnemonicParsing="false" toggleGroup="$grupo2" />
+      <ImageView fx:id="carta1" fitHeight="235.0" fitWidth="160.0" layoutX="446.0" layoutY="67.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <ImageView fx:id="carta2" fitHeight="235.0" fitWidth="160.0" layoutX="668.0" layoutY="70.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <ImageView fx:id="carta3" fitHeight="235.0" fitWidth="160.0" layoutX="889.0" layoutY="67.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <ImageView fx:id="carta4" fitHeight="235.0" fitWidth="160.0" layoutX="1109.0" layoutY="70.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <ImageView fx:id="carta5" fitHeight="235.0" fitWidth="160.0" layoutX="446.0" layoutY="457.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <ImageView fx:id="carta6" fitHeight="235.0" fitWidth="160.0" layoutX="668.0" layoutY="457.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <ImageView fx:id="carta7" fitHeight="235.0" fitWidth="160.0" layoutX="888.0" layoutY="457.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <ImageView fx:id="carta8" fitHeight="235.0" fitWidth="160.0" layoutX="1109.0" layoutY="457.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image></ImageView>
+      <Button layoutX="1228.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnVolver" prefHeight="59.0" prefWidth="62.0" text="VOLVER" />
+      <ImageView fx:id="marco1" fitHeight="221.0" fitWidth="167.0" layoutX="446.0" layoutY="72.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="marco2" fitHeight="221.0" fitWidth="167.0" layoutX="668.0" layoutY="75.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="marco3" fitHeight="221.0" fitWidth="167.0" layoutX="889.0" layoutY="72.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="marco4" fitHeight="221.0" fitWidth="167.0" layoutX="1109.0" layoutY="75.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="marco5" fitHeight="221.0" fitWidth="167.0" layoutX="446.0" layoutY="462.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="marco6" fitHeight="221.0" fitWidth="167.0" layoutX="668.0" layoutY="462.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="marco7" fitHeight="221.0" fitWidth="167.0" layoutX="888.0" layoutY="462.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="marco8" fitHeight="221.0" fitWidth="167.0" layoutX="1109.0" layoutY="462.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/marcoSeleccionado.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="467.0" layoutY="281.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="592.0" layoutY="282.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="689.0" layoutY="279.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="910.0" layoutY="281.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1130.0" layoutY="285.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="467.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="689.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="909.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1130.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="817.0" layoutY="279.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1036.0" layoutY="281.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1254.0" layoutY="285.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="591.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="814.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1035.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1255.0" layoutY="669.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="carta1Vida" layoutX="581.0" layoutY="259.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta1Ataque" layoutX="456.0" layoutY="258.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta2Vida" layoutX="806.0" layoutY="256.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta2Ataque" layoutX="678.0" layoutY="256.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta3Ataque" layoutX="899.0" layoutY="258.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta3Vida" layoutX="1025.0" layoutY="258.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta4Ataque" layoutX="1118.0" layoutY="262.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta4Vida" layoutX="1243.0" layoutY="262.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta5Ataque" layoutX="456.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta5Vida" layoutX="580.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta8Vida" layoutX="1244.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta8Ataque" layoutX="1119.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta7Vida" layoutX="1024.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta7Ataque" layoutX="898.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta6Vida" layoutX="803.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="carta6Ataque" layoutX="678.0" layoutY="646.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txtAreaHistorial" editable="false" layoutX="14.0" layoutY="73.0" opacity="0.8" prefHeight="712.0" prefWidth="414.0" style="-fx-control-inner-background: #000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: white; -fx-font-size: 14px;">
+         <font>
+            <Font size="14.0" />
+         </font></TextArea>
+      <Label layoutX="75.0" layoutY="25.0" text="HISTORIAL PARTIDA" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnPasarTurno" disable="true" layoutX="1126.0" layoutY="726.0" mnemonicParsing="false" onAction="#pasarTurno" prefHeight="59.0" prefWidth="132.0" style="-fx-background-color: black;" text="PASAR TURNO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblSituacion" alignment="CENTER" layoutX="592.0" layoutY="376.0" prefHeight="27.0" prefWidth="500.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
