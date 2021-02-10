@@ -86,4 +86,18 @@ public class ControllerMenu {
 			e.printStackTrace();
 		}
     }
+    
+    public void botonGuia(ActionEvent event) {
+    ((Node)event.getSource()).getScene().getWindow().hide();
+	try {
+		Stage primaryStage= new Stage();
+		AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Ayuda.fxml"));
+		Scene scene = new Scene(root,1300,830);
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
+}
 }

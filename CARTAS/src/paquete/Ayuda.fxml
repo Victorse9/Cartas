@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorGuia">
+   <children>
+      <ImageView fitHeight="854.0" fitWidth="1348.0" layoutX="-19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/librito.jpeg" />
+         </image></ImageView>
+      <Label layoutX="446.0" layoutY="61.0" text="GUIA DEL JUEGO">
+         <font>
+            <Font name="Oswald Regular" size="65.0" />
+         </font></Label>
+      <Button id="btnVolver" fx:id="btnVolver" layoutX="1207.0" layoutY="760.0" mnemonicParsing="false" onAction="#botonVolver" prefHeight="59.0" prefWidth="79.0" text="VOLVER" />
+      <Label fx:id="label1" layoutX="250.0" layoutY="214.0" text="- CUTRESTONE es un juego de estrategia de cartas 1 vs 1">
+         <font>
+            <Font name="Oswald Regular" size="31.0" />
+         </font>
+      </Label>
+      <Label id="label2" fx:id="label2" layoutX="250.0" layoutY="286.0" text="- Cada jugador consta de un mazo de 4 cartas">
+         <font>
+            <Font name="Oswald Regular" size="31.0" />
+         </font>
+      </Label>
+      <Label id="label5" fx:id="label5" layoutX="250.0" layoutY="520.0" text="- El objetivo es derrotar todas las cartas enemigas.">
+         <font>
+            <Font name="Oswald Regular" size="31.0" />
+         </font>
+      </Label>
+      <Label id="label3" fx:id="label3" layoutX="250.0" layoutY="368.0" text="- Existen 2 tipos de rarezas de cartas: Legendaria y común.">
+         <font>
+            <Font name="Oswald Regular" size="31.0" />
+         </font>
+      </Label>
+      <Label id="label4" fx:id="label4" layoutX="250.0" layoutY="438.0" text="- Las cartas legendarias son más poderosas.">
+         <font>
+            <Font name="Oswald Regular" size="31.0" />
+         </font>
+      </Label>
+      <ImageView id="tinta" fx:id="tinta" fitHeight="266.0" fitWidth="252.0" layoutX="499.0" layoutY="588.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/tinta.png" />
+         </image>
+      </ImageView>
+      <ImageView id="flechaAlante" fx:id="flechaAlante" fitHeight="77.0" fitWidth="91.0" layoutX="1156.0" layoutY="359.0" onMouseClicked="#flecha" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/flecha-12.png" />
+         </image>
+      </ImageView>
+      <ImageView id="flechaAtras" fx:id="flechaAtras" fitHeight="59.0" fitWidth="91.0" layoutX="66.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/flechaAtras.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
