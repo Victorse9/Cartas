@@ -65,6 +65,7 @@ public class ControladorGuia {
 		flechaAtras.setVisible(true);
 		tinta.setVisible(false);
 		
+		
 		fotoRandall.setVisible(true);
 		ataqueRandall1.setVisible(true);
 		ataqueRandall2.setVisible(true);
