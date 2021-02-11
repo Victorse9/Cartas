@@ -54,7 +54,6 @@ public class ControladorGuia {
 	}
 	
 	public void ultimaFlecha(MouseEvent event) {
-		
 		label5.setVisible(false);
 		label1.setVisible(false);
 		label2.setVisible(false);
