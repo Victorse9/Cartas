@@ -146,5 +146,10 @@
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
+      <ImageView id="flechaAtras" fx:id="flechaAtras1" fitHeight="59.0" fitWidth="91.0" layoutX="85.0" layoutY="361.0" onMouseClicked="#flechaAtrasjejeje" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/flechaAtras.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -18,7 +18,7 @@ public class ControladorGuia {
 	@FXML
 	Label label1,label2,label3,label4,label5,lblAtaque,lblVida,ataqueRandall1,vidaRandall2,lblRareza;
 	@FXML
-	ImageView tinta,flechaAtras,flechaAlante,flechaAlante1,fotoRandall,flechaAtaque,flechaVida,flechaVictor;
+	ImageView tinta,flechaAtras,flechaAlante,flechaAlante1,fotoRandall,flechaAtaque,flechaVida,flechaVictor,flechaAtras1;
 	@FXML
 	Circle vidaRandall1,ataqueRandall2;
 	
@@ -46,7 +46,9 @@ public class ControladorGuia {
 		
 		tinta.setVisible(false);
 		
-		flechaAtras.setVisible(true);
+		flechaAtras.setVisible(false);
+		flechaAtras1.setVisible(true);
+		
 		flechaAlante.setVisible(false);
 		flechaAlante1.setVisible(true);
 	}
@@ -59,6 +61,10 @@ public class ControladorGuia {
 		label3.setVisible(false);
 		label4.setVisible(false);
 		flechaAlante1.setVisible(false);
+		
+		flechaAtras1.setVisible(false);
+		flechaAtras.setVisible(true);
+		tinta.setVisible(false);
 		
 		fotoRandall.setVisible(true);
 		ataqueRandall1.setVisible(true);
@@ -82,6 +88,8 @@ public class ControladorGuia {
 		label4.setVisible(true);
 		flechaAlante1.setVisible(true);
 		
+		flechaAtras.setVisible(false);
+		flechaAtras1.setVisible(true);
 		
 		fotoRandall.setVisible(false);
 		ataqueRandall1.setVisible(false);
@@ -96,7 +104,15 @@ public class ControladorGuia {
 		lblRareza.setVisible(false);
 	}
 	
+	public void flechaAtrasjejeje(MouseEvent event) {
+		label1.setText("- CUTRESTONE es un juego de estrategia de cartas 1 vs 1.");
+		label2.setText("- Cada jugador consta de un mazo de 4 cartas");
+		label3.setText("- Existen 2 tipos de rarezas de cartas: Legendaria y común.");
+		label4.setText("- Las cartas legendarias son más poderosas.");
+		label5.setText("- El objetivo es derrotar todas las cartas enemigas.");
+		tinta.setVisible(true);
+		flechaAtras1.setVisible(false);
+	}
 	
-	
-	
+
 }
