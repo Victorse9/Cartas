@@ -11,14 +11,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.shape.*;
 
 public class ControladorGuia {
 	
 	@FXML
-	Label label1,label2,label3,label4,label5;
+	Label label1,label2,label3,label4,label5,lblAtaque,lblVida,ataqueRandall1,vidaRandall2,lblRareza;
 	@FXML
-	ImageView tinta,flechaAtras,flechaAlante;
-	
+	ImageView tinta,flechaAtras,flechaAlante,flechaAlante1,fotoRandall,flechaAtaque,flechaVida,flechaVictor;
+	@FXML
+	Circle vidaRandall1,ataqueRandall2;
 	
 	public void botonVolver(ActionEvent event) {
 	((Node)event.getSource()).getScene().getWindow().hide();
@@ -45,7 +47,56 @@ public class ControladorGuia {
 		tinta.setVisible(false);
 		
 		flechaAtras.setVisible(true);
-		
+		flechaAlante.setVisible(false);
+		flechaAlante1.setVisible(true);
 	}
+	
+	public void ultimaFlecha(MouseEvent event) {
+		
+		label5.setVisible(false);
+		label1.setVisible(false);
+		label2.setVisible(false);
+		label3.setVisible(false);
+		label4.setVisible(false);
+		flechaAlante1.setVisible(false);
+		
+		fotoRandall.setVisible(true);
+		ataqueRandall1.setVisible(true);
+		ataqueRandall2.setVisible(true);
+		vidaRandall1.setVisible(true);
+		vidaRandall2.setVisible(true);
+		lblVida.setVisible(true);
+		lblAtaque.setVisible(true);
+		flechaAtaque.setVisible(true);
+		flechaVida.setVisible(true);
+		flechaVictor.setVisible(true);
+		lblRareza.setVisible(true);
+
+	}
+	
+	public void flechaAtras(MouseEvent event) {
+		label5.setVisible(true);
+		label1.setVisible(true);
+		label2.setVisible(true);
+		label3.setVisible(true);
+		label4.setVisible(true);
+		flechaAlante1.setVisible(true);
+		
+		
+		fotoRandall.setVisible(false);
+		ataqueRandall1.setVisible(false);
+		ataqueRandall2.setVisible(false);
+		vidaRandall1.setVisible(false);
+		vidaRandall2.setVisible(false);
+		lblVida.setVisible(false);
+		lblAtaque.setVisible(false);
+		flechaAtaque.setVisible(false);
+		flechaVida.setVisible(false);
+		flechaVictor.setVisible(false);
+		lblRareza.setVisible(false);
+	}
+	
+	
+	
 	
 }
