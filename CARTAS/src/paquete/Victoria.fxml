@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorVictoria">
+   <children>
+      <ImageView fitHeight="859.0" fitWidth="1317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/fondoVictory.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="766.0" fitWidth="875.0" layoutX="221.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/victory.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnVictoria" layoutX="1090.0" layoutY="735.0" mnemonicParsing="false" onAction="#siguienteRival" opacity="0.8" prefHeight="70.0" prefWidth="180.0" style="-fx-background-color: black;" text="SIGUIENTE RIVAL" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblVictoria" layoutX="70.0" layoutY="744.0" text="¡ENHORABUENA ACABASTES CON TODOS LOS RIVALES!" textFill="#3b8597" visible="false">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
