@@ -41,19 +41,19 @@
       <RadioButton fx:id="r6" disable="true" layoutX="751.0" layoutY="685.0" mnemonicParsing="false" toggleGroup="$grupo2" />
       <RadioButton fx:id="r7" disable="true" layoutX="972.0" layoutY="685.0" mnemonicParsing="false" toggleGroup="$grupo2" />
       <RadioButton fx:id="r8" disable="true" layoutX="1184.0" layoutY="682.0" mnemonicParsing="false" toggleGroup="$grupo2" />
-      <ImageView fx:id="carta1" fitHeight="235.0" fitWidth="160.0" layoutX="446.0" layoutY="67.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="carta1" fitHeight="235.0" fitWidth="160.0" layoutX="446.0" layoutY="93.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/knekro.png" />
          </image></ImageView>
-      <ImageView fx:id="carta2" fitHeight="235.0" fitWidth="160.0" layoutX="668.0" layoutY="70.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="carta2" fitHeight="235.0" fitWidth="160.0" layoutX="668.0" layoutY="96.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/knekro.png" />
          </image></ImageView>
-      <ImageView fx:id="carta3" fitHeight="235.0" fitWidth="160.0" layoutX="889.0" layoutY="67.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="carta3" fitHeight="235.0" fitWidth="160.0" layoutX="889.0" layoutY="93.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/knekro.png" />
          </image></ImageView>
-      <ImageView fx:id="carta4" fitHeight="235.0" fitWidth="160.0" layoutX="1109.0" layoutY="70.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="carta4" fitHeight="235.0" fitWidth="160.0" layoutX="1109.0" layoutY="96.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/knekro.png" />
          </image></ImageView>
@@ -73,7 +73,6 @@
          <image>
             <Image url="@../img/knekro.png" />
          </image></ImageView>
-      <Button layoutX="1228.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnVolver" prefHeight="59.0" prefWidth="62.0" text="VOLVER" />
       <ImageView fx:id="marco1" fitHeight="221.0" fitWidth="167.0" layoutX="446.0" layoutY="72.0" onMouseClicked="#clickCarta" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../complementos/marcoSeleccionado.png" />
@@ -114,7 +113,7 @@
             <Image url="@../complementos/marcoSeleccionado.png" />
          </image>
       </ImageView>
-      <Circle layoutX="467.0" layoutY="281.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="467.0" layoutY="307.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
                <stops>
@@ -132,7 +131,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Circle layoutX="592.0" layoutY="282.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="592.0" layoutY="308.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
                <stops>
@@ -150,7 +149,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Circle layoutX="689.0" layoutY="279.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="689.0" layoutY="305.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
                <stops>
@@ -168,7 +167,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Circle layoutX="910.0" layoutY="281.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="910.0" layoutY="307.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
                <stops>
@@ -186,7 +185,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Circle layoutX="1130.0" layoutY="285.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="1130.0" layoutY="311.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
                <stops>
@@ -276,7 +275,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Circle layoutX="817.0" layoutY="279.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="817.0" layoutY="305.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
                <stops>
@@ -294,7 +293,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Circle layoutX="1036.0" layoutY="281.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="1036.0" layoutY="307.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
                <stops>
@@ -312,7 +311,7 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Circle layoutX="1254.0" layoutY="285.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+      <Circle layoutX="1254.0" layoutY="311.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
          <fill>
             <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
                <stops>
@@ -402,42 +401,42 @@
             </LinearGradient>
          </fill>
       </Circle>
-      <Label fx:id="carta1Vida" layoutX="581.0" layoutY="259.0" text="8">
+      <Label fx:id="carta1Vida" layoutX="581.0" layoutY="285.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="carta1Ataque" layoutX="456.0" layoutY="258.0" text="8">
+      <Label fx:id="carta1Ataque" layoutX="456.0" layoutY="284.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="carta2Vida" layoutX="806.0" layoutY="256.0" text="8">
+      <Label fx:id="carta2Vida" layoutX="806.0" layoutY="282.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="carta2Ataque" layoutX="678.0" layoutY="256.0" text="8">
+      <Label fx:id="carta2Ataque" layoutX="678.0" layoutY="282.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="carta3Ataque" layoutX="899.0" layoutY="258.0" text="8">
+      <Label fx:id="carta3Ataque" layoutX="899.0" layoutY="284.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="carta3Vida" layoutX="1025.0" layoutY="258.0" text="8">
+      <Label fx:id="carta3Vida" layoutX="1025.0" layoutY="284.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="carta4Ataque" layoutX="1118.0" layoutY="262.0" text="8">
+      <Label fx:id="carta4Ataque" layoutX="1118.0" layoutY="288.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="carta4Vida" layoutX="1243.0" layoutY="262.0" text="8">
+      <Label fx:id="carta4Vida" layoutX="1243.0" layoutY="288.0" text="8">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
@@ -486,9 +485,9 @@
          <font>
             <Font size="14.0" />
          </font></TextArea>
-      <Label layoutX="75.0" layoutY="25.0" text="HISTORIAL PARTIDA" textFill="WHITE">
+      <Label layoutX="46.0" layoutY="21.0" text="HISTORIAL PARTIDA" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold Italic" size="36.0" />
          </font>
       </Label>
       <Button fx:id="btnPasarTurno" disable="true" layoutX="1126.0" layoutY="726.0" mnemonicParsing="false" onAction="#pasarTurno" prefHeight="59.0" prefWidth="132.0" style="-fx-background-color: black;" text="PASAR TURNO" textFill="WHITE">
@@ -498,8 +497,18 @@
       </Button>
       <Label fx:id="lblSituacion" alignment="CENTER" layoutX="592.0" layoutY="376.0" prefHeight="27.0" prefWidth="500.0">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
+      <ImageView fitHeight="150.0" fitWidth="67.0" layoutX="1219.0" layoutY="14.0" onMouseClicked="#cerrarApp" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/cierre.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="67.0" layoutX="1141.0" layoutY="14.0" onMouseClicked="#btnVolver" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/atrasMenu.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -3,6 +3,7 @@ package paquete;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ControladorPartida {
 
@@ -48,15 +50,18 @@ public class ControladorPartida {
 	@FXML
 	private TextArea txtAreaHistorial;
 	private boolean miTurno = true;
+	private int rival = 1;
+	@FXML
+	private Stage stageVictoria;
 
 	/**
 	 * Botón atacar
 	 * 
 	 * @param e
-	 * @throws InterruptedException
+	 * @throws Exception
 	 */
 	@FXML
-	public void atacar(ActionEvent e) throws InterruptedException {
+	public void atacar(ActionEvent event) throws Exception {
 		// Ataque del jugador
 		ataqueCartas(compruebaSeleccion1(), compruebaSeleccion2());
 		miTurno = false;
@@ -64,10 +69,42 @@ public class ControladorPartida {
 
 		switch (compruebaDerrota()) {
 		case "VICTORIA":
-			lblSituacion.setText("VICTORIA");
+			lblSituacion.setText("ES TU TURNO");
+			// Sumamos uno a la variable rival para indicarle que nos toca el siguiente
+			// rival
+			rival = rival + 1;
+			// Comprueba el rival que toca
+			switch (rival) {
+			case 2:
+				cargarVictoria();
+				try {
+					cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					throw e1;
+				}
+				habilitarCartas();
+				miTurno = true;
+				break;
+			case 3:
+				cargarVictoria();
+				try {
+					cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					throw e1;
+				}
+				habilitarCartas();
+				miTurno = true;
+				break;
+			default:
+				cargarVictoria();
+			}
+
 			break;
 		case "DERROTA":
-			lblSituacion.setText("DERROTA");
+			((Node) event.getSource()).getScene().getWindow().hide();
+			cargarDerrota();
 			break;
 		case "SEGUIMOS":
 			btnPasarTurno.setDisable(false);
@@ -77,13 +114,17 @@ public class ControladorPartida {
 	}
 
 	@FXML
-	public void pasarTurno(ActionEvent e) throws InterruptedException {
+	public void pasarTurno(ActionEvent event) throws Exception {
 		Thread hilo = new Thread();
 		try {
-			hilo.sleep(3000);
+			hilo.sleep(1000);
 			hilo.join();
-			int[] cartasIA = seleccionCartaIA();
-			ataqueCartas(cartasIA[0], cartasIA[1]);
+			int cartaIA1, cartaIA2;
+
+			cartaIA1 = seleccionCartaIA1();
+			cartaIA2 = seleccionCartaIA2();
+
+			ataqueCartas(cartaIA1, cartaIA2);
 			miTurno = true;
 			btnPasarTurno.setDisable(true);
 			lblSituacion.setText("¡ES TU TURNO, ACABA CON ÉL!");
@@ -91,13 +132,44 @@ public class ControladorPartida {
 			e1.printStackTrace();
 			throw e1;
 		}
-		
+
 		switch (compruebaDerrota()) {
 		case "VICTORIA":
-			lblSituacion.setText("VICTORIA");
+			lblSituacion.setText("ES TU TURNO");
+			// Sumamos uno a la variable rival para indicarle que nos toca el siguiente
+			// rival
+			rival = rival + 1;
+			// Comprueba el rival que toca
+			switch (rival) {
+			case 2:
+				cargarVictoria();
+				try {
+					cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					throw e1;
+				}
+				habilitarCartas();
+				miTurno = true;
+				break;
+			case 3:
+				cargarVictoria();
+				try {
+					cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					throw e1;
+				}
+				habilitarCartas();
+				miTurno = true;
+				break;
+			default:
+				cargarVictoria();
+			}
 			break;
 		case "DERROTA":
-			lblSituacion.setText("DERROTA");
+			((Node) event.getSource()).getScene().getWindow().hide();
+			cargarDerrota();
 			break;
 		case "SEGUIMOS":
 			break;
@@ -107,6 +179,7 @@ public class ControladorPartida {
 
 	@FXML
 	public void initialize() throws Exception {
+		generarPantallaVictoria();
 		lblSituacion.setText("ES TU TURNO. PIENSA BIEN TU PRIMER ATAQUE");
 		try {
 			cargaCartas("ED, EDD Y EDDY", "MIKE WAZOWSKY", "OSO YOGUI", "RANDALL", "GARROSH", "MAIEV", "VARIAN",
@@ -117,6 +190,19 @@ public class ControladorPartida {
 		}
 	}
 
+	/**
+	 * Carga las cartas de la bbdd
+	 * 
+	 * @param nombre1
+	 * @param nombre2
+	 * @param nombre3
+	 * @param nombre4
+	 * @param nombre5
+	 * @param nombre6
+	 * @param nombre7
+	 * @param nombre8
+	 * @throws Exception
+	 */
 	public void cargaCartas(String nombre1, String nombre2, String nombre3, String nombre4, String nombre5,
 			String nombre6, String nombre7, String nombre8) throws Exception {
 		Consulta consulta = new Consulta();
@@ -326,12 +412,12 @@ public class ControladorPartida {
 	}
 
 	/**
-	 * Abandonar partida
+	 * Ir menu
 	 * 
 	 * @param e
 	 */
 	@FXML
-	public void btnVolver(ActionEvent e) {
+	public void btnVolver(MouseEvent e) {
 
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
@@ -585,7 +671,7 @@ public class ControladorPartida {
 				vida3 = vida3 - ataque6;
 				carta3Vida.setText(vida3 + "");
 				vida6 = vida6 - ataque3;
-				carta5Vida.setText(vida6 + "");
+				carta6Vida.setText(vida6 + "");
 				// Historial partida
 				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
 						+ "p. de daño a: " + oCarta3.getNombre() + ".");
@@ -833,61 +919,178 @@ public class ControladorPartida {
 		btnAtacar.setDisable(true);
 	}
 
-	public int[] seleccionCartaIA() {
-		int seleccionIA1, seleccionIA2;
-		seleccionIA1 = 1 + (int) (Math.random() * 4);
-		seleccionIA2 = 1 + (int) (Math.random() * 4);
+	/**
+	 * Seleccion primera carta IA
+	 * 
+	 * @return
+	 */
+	public int seleccionCartaIA1() {
+		int seleccionIA = -1;
+		boolean fin = false;
 
-		// Selecciona una carta del grupo 1 viva
-		switch (seleccionIA1) {
-		case 1:
-			if (sigueVivo(vida1) == false) {
-				seleccionIA1 = 1 + (int) (Math.random() * 4);
+		while (fin == false) {
+			seleccionIA = 1 + (int) (Math.random() * 4);
+			// Selecciona una carta del grupo 1 viva
+			switch (seleccionIA) {
+			case 1:
+				if (sigueVivo(vida1) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
+			case 2:
+				if (sigueVivo(vida2) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
+			case 3:
+				if (sigueVivo(vida3) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
+			case 4:
+				if (sigueVivo(vida4) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
 			}
-			break;
-		case 2:
-			if (sigueVivo(vida2) == false) {
-				seleccionIA1 = 1 + (int) (Math.random() * 4);
-			}
-			break;
-		case 3:
-			if (sigueVivo(vida3) == false) {
-				seleccionIA1 = 1 + (int) (Math.random() * 4);
-			}
-			break;
-		case 4:
-			if (sigueVivo(vida4) == false) {
-				seleccionIA1 = 1 + (int) (Math.random() * 4);
-			}
-			break;
 		}
 
-		// Selecciona una carta del grupo 2 viva
-		switch (seleccionIA2) {
-		case 1:
-			if (sigueVivo(vida5) == false) {
-				seleccionIA2 = 1 + (int) (Math.random() * 4);
+		return seleccionIA;
+	}
+
+	/**
+	 * Seleccion primera carta IA
+	 * 
+	 * @return
+	 */
+	public int seleccionCartaIA2() {
+		int seleccionIA = -1;
+		boolean fin = false;
+
+		while (fin == false) {
+			seleccionIA = 1 + (int) (Math.random() * 4);
+			// Selecciona una carta del grupo 1 viva
+			switch (seleccionIA) {
+			case 1:
+				if (sigueVivo(vida5) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
+			case 2:
+				if (sigueVivo(vida6) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
+			case 3:
+				if (sigueVivo(vida7) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
+			case 4:
+				if (sigueVivo(vida8) == false) {
+					fin = false;
+				} else {
+					fin = true;
+				}
+				break;
 			}
-			break;
-		case 2:
-			if (sigueVivo(vida6) == false) {
-				seleccionIA2 = 1 + (int) (Math.random() * 4);
-			}
-			break;
-		case 3:
-			if (sigueVivo(vida7) == false) {
-				seleccionIA2 = 1 + (int) (Math.random() * 4);
-			}
-			break;
-		case 4:
-			if (sigueVivo(vida8) == false) {
-				seleccionIA2 = 1 + (int) (Math.random() * 4);
-			}
-			break;
 		}
 
-		int[] seleccionadas = { seleccionIA1, seleccionIA2 };
-		return seleccionadas;
+		return seleccionIA;
+	}
+
+	/**
+	 * Habilita todas las cartas
+	 */
+	public void habilitarCartas() {
+		carta1.setDisable(false);
+		carta2.setDisable(false);
+		carta3.setDisable(false);
+		carta4.setDisable(false);
+		carta5.setDisable(false);
+		carta6.setDisable(false);
+		carta7.setDisable(false);
+		carta8.setDisable(false);
+		txtAreaHistorial.setText("");
+	}
+
+	/**
+	 * Carga la pantalla de Victoria
+	 */
+	public void cargarVictoria() {
+		stageVictoria.show();
+	}
+
+	/**
+	 * Genera el Stage Victoria
+	 */
+	public void generarPantallaVictoria() {
+		try {
+			stageVictoria = new Stage();
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Victoria.fxml"));
+			Scene scene = new Scene(root, 1300, 830);
+			stageVictoria.setScene(scene);
+			stageVictoria.setResizable(false);
+			stageVictoria.initStyle(StageStyle.UNDECORATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Carga la pantalla de Derrota
+	 */
+	public void cargarDerrota() {
+		try {
+			Stage primaryStage = new Stage();
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Derrota.fxml"));
+			Scene scene = new Scene(root, 1300, 830);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Cierra la app
+	 * 
+	 * @param e
+	 */
+	@FXML
+	public void cerrarApp(MouseEvent e) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setHeaderText(null);
+		alert.setTitle("Cerrar CutreStone");
+		alert.setContentText("¿Deseas salir de CutreStone?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == ButtonType.OK) {
+			try {
+				System.exit(0);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} else {
+
+		}
 	}
 
 }
