@@ -2,10 +2,10 @@ package paquete;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.prism.paint.Color;
 
 import conexion.Carta;
 import conexion.Consulta;
@@ -25,6 +25,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -38,11 +40,11 @@ public class ControladorPartida {
 	private ToggleGroup grupo1, grupo2;
 	@FXML
 	private ImageView carta1, carta2, carta3, carta4, carta5, carta6, carta7, carta8, marco1, marco2, marco3, marco4,
-			marco5, marco6, marco7, marco8;
+			marco5, marco6, marco7, marco8, altavozOn, altavozOff;
 	@FXML
 	private Label carta1Ataque, carta1Vida, carta2Ataque, carta2Vida, carta3Ataque, carta3Vida, carta4Ataque,
 			carta4Vida, carta5Ataque, carta5Vida, carta6Ataque, carta6Vida, carta7Ataque, carta7Vida, carta8Ataque,
-			carta8Vida, lblSituacion;
+			carta8Vida, lblSituacion, f1, f2, f3, f4, f5, f6, f7, f8, lblEquipoRival;
 
 	private Carta oCarta1, oCarta2, oCarta3, oCarta4, oCarta5, oCarta6, oCarta7, oCarta8;
 	private int vida1, vida2, vida3, vida4, vida5, vida6, vida7, vida8, ataque1, ataque2, ataque3, ataque4, ataque5,
@@ -53,134 +55,31 @@ public class ControladorPartida {
 	private int rival = 1;
 	@FXML
 	private Stage stageVictoria;
-
-	/**
-	 * Botón atacar
-	 * 
-	 * @param e
-	 * @throws Exception
-	 */
 	@FXML
-	public void atacar(ActionEvent event) throws Exception {
-		// Ataque del jugador
-		ataqueCartas(compruebaSeleccion1(), compruebaSeleccion2());
-		miTurno = false;
-		btnAtacar.setDisable(true);
-
-		switch (compruebaDerrota()) {
-		case "VICTORIA":
-			lblSituacion.setText("ES TU TURNO");
-			// Sumamos uno a la variable rival para indicarle que nos toca el siguiente
-			// rival
-			rival = rival + 1;
-			// Comprueba el rival que toca
-			switch (rival) {
-			case 2:
-				cargarVictoria();
-				try {
-					cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					throw e1;
-				}
-				habilitarCartas();
-				miTurno = true;
-				break;
-			case 3:
-				cargarVictoria();
-				try {
-					cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					throw e1;
-				}
-				habilitarCartas();
-				miTurno = true;
-				break;
-			default:
-				cargarVictoria();
-			}
-
-			break;
-		case "DERROTA":
-			((Node) event.getSource()).getScene().getWindow().hide();
-			cargarDerrota();
-			break;
-		case "SEGUIMOS":
-			btnPasarTurno.setDisable(false);
-			lblSituacion.setText("YA HAS ATACADO. PULSA PASAR TURNO");
-			break;
-		}
-	}
-
+	private AudioClip audioVictoria = new AudioClip("file:sonido/sonido-de-victoria.mp3");
 	@FXML
-	public void pasarTurno(ActionEvent event) throws Exception {
-		Thread hilo = new Thread();
-		try {
-			hilo.sleep(1000);
-			hilo.join();
-			int cartaIA1, cartaIA2;
-
-			cartaIA1 = seleccionCartaIA1();
-			cartaIA2 = seleccionCartaIA2();
-
-			ataqueCartas(cartaIA1, cartaIA2);
-			miTurno = true;
-			btnPasarTurno.setDisable(true);
-			lblSituacion.setText("¡ES TU TURNO, ACABA CON ÉL!");
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-			throw e1;
-		}
-
-		switch (compruebaDerrota()) {
-		case "VICTORIA":
-			lblSituacion.setText("ES TU TURNO");
-			// Sumamos uno a la variable rival para indicarle que nos toca el siguiente
-			// rival
-			rival = rival + 1;
-			// Comprueba el rival que toca
-			switch (rival) {
-			case 2:
-				cargarVictoria();
-				try {
-					cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					throw e1;
-				}
-				habilitarCartas();
-				miTurno = true;
-				break;
-			case 3:
-				cargarVictoria();
-				try {
-					cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					throw e1;
-				}
-				habilitarCartas();
-				miTurno = true;
-				break;
-			default:
-				cargarVictoria();
-			}
-			break;
-		case "DERROTA":
-			((Node) event.getSource()).getScene().getWindow().hide();
-			cargarDerrota();
-			break;
-		case "SEGUIMOS":
-			break;
-		}
-
-	}
+	private AudioClip audioDerrota = new AudioClip("file:sonido/sonido-de-derrota.mp3");
+	@FXML
+	private AudioClip cancion = new AudioClip("file:sonido/cancion.mp3");
+	@FXML
+	private AudioClip espada = new AudioClip("file:sonido/espada.mp3");
+	@FXML
+	private AudioClip fallo = new AudioClip("file:sonido/fallo.mp3");
+	@FXML
+	private AnchorPane container;
 
 	@FXML
 	public void initialize() throws Exception {
+		// Permite arrastrar la ventana de la app
+		this.onDraggedScene(this.container);
+		// Inicia la cancion del modo jugar
+		cancion.setVolume(0.4);
+		cancion.play();
+		// Se genera la pantalla y luego, la vamos llamando cuando sea necesario
 		generarPantallaVictoria();
 		lblSituacion.setText("ES TU TURNO. PIENSA BIEN TU PRIMER ATAQUE");
+		lblEquipoRival.setText("Derrota a: 'La banda de Randall'");
+		// Carga el primer rival
 		try {
 			cargaCartas("ED, EDD Y EDDY", "MIKE WAZOWSKY", "OSO YOGUI", "RANDALL", "GARROSH", "MAIEV", "VARIAN",
 					"SYLVANAS");
@@ -188,6 +87,672 @@ public class ControladorPartida {
 			e.printStackTrace();
 			throw e;
 		}
+	}
+
+	/**
+	 * Botón atacar, para realizar mi ataque
+	 * 
+	 * @param e
+	 * @throws Exception
+	 */
+	@FXML
+	public void atacar(ActionEvent event) throws Exception {
+		// Decide si se ataca o falla el ataque
+		boolean fallaAtaque = false;
+		String mensaje = "";
+
+		// Comprobamos si nuestra carta acierta el ataque o falla
+		switch (compruebaSeleccion2()) {
+		case 1:
+			fallaAtaque = fallaAtaque(oCarta5);
+			mensaje = "\n > " + oCarta5.getNombre() + " falló su ataque.";
+			break;
+		case 2:
+			fallaAtaque = fallaAtaque(oCarta6);
+			mensaje = "\n > " + oCarta6.getNombre() + " falló su ataque.";
+			break;
+		case 3:
+			fallaAtaque = fallaAtaque(oCarta7);
+			mensaje = "\n > " + oCarta7.getNombre() + " falló su ataque.";
+			break;
+		case 4:
+			fallaAtaque = fallaAtaque(oCarta8);
+			mensaje = "\n > " + oCarta8.getNombre() + " falló su ataque.";
+			break;
+		}
+
+		// Si nuestra carta acierta se realiza el ataque
+		if (fallaAtaque == false) {
+			espada.play();
+			// Ataque del jugador
+			ataqueCartas(compruebaSeleccion1(), compruebaSeleccion2());
+			miTurno = false;
+			btnAtacar.setDisable(true);
+
+			switch (compruebaDerrota()) {
+			case "VICTORIA":
+				habilitaCartas();
+				lblSituacion.setText("ES TU TURNO");
+				// Sumamos uno a la variable rival para indicarle que nos toca el siguiente
+				// rival
+				rival = rival + 1;
+				// Comprueba el rival que toca
+				switch (rival) {
+				case 2:
+					cargarVictoria();
+					lblEquipoRival.setText("Derrota a: 'La Brigada Streamer'");
+					try {
+						cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN",
+								"SYLVANAS");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						throw e1;
+					}
+					resetCartas();
+					miTurno = true;
+					break;
+				case 3:
+					cargarVictoria();
+					lblEquipoRival.setText("Derrota a: 'The Green Doramion'");
+					try {
+						cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						throw e1;
+					}
+					resetCartas();
+					miTurno = true;
+					break;
+				default:
+					cancion.stop();
+					cargarVictoria();
+					((Node) event.getSource()).getScene().getWindow().hide();
+				}
+
+				break;
+			case "DERROTA":
+				cancion.stop();
+				((Node) event.getSource()).getScene().getWindow().hide();
+				cargarDerrota();
+				break;
+			case "SEGUIMOS":
+				btnPasarTurno.setDisable(false);
+				lblSituacion.setText("YA HAS ATACADO. PULSA PASAR TURNO");
+				deshabilitaCartas();
+				break;
+			}
+			// Si la carta falla el ataque imprimimos el mensaje de fallo
+		} else {
+			fallo.play();
+			txtAreaHistorial.appendText(mensaje);
+			miTurno = false;
+			deshabilitaCartas();
+			r1.setSelected(false);
+			r2.setSelected(false);
+			r3.setSelected(false);
+			r4.setSelected(false);
+			r5.setSelected(false);
+			r6.setSelected(false);
+			r7.setSelected(false);
+			r8.setSelected(false);
+			marco1.setVisible(false);
+			marco2.setVisible(false);
+			marco3.setVisible(false);
+			marco4.setVisible(false);
+			marco5.setVisible(false);
+			marco6.setVisible(false);
+			marco7.setVisible(false);
+			marco8.setVisible(false);
+			btnAtacar.setDisable(true);
+			btnPasarTurno.setDisable(false);
+			lblSituacion.setText("FALLASTE EL ATAQUE. PASA DE TURNO");
+		}
+
+	}
+
+	/**
+	 * Boton pasar turno, ademas realiza el ataque de la IA
+	 * 
+	 * @param event
+	 * @throws Exception
+	 */
+	@FXML
+	public void pasarTurno(ActionEvent event) throws Exception {
+
+		// Decide si se ataca o falla el ataque
+		boolean fallaAtaque = false;
+		String mensaje = "";
+
+		// Comprobamos si nuestra carta acierta el ataque o falla
+		switch (seleccionCartaIA1()) {
+		case 1:
+			fallaAtaque = fallaAtaque(oCarta1);
+			mensaje = "\n > " + oCarta1.getNombre() + " falló su ataque.";
+			break;
+		case 2:
+			fallaAtaque = fallaAtaque(oCarta2);
+			mensaje = "\n > " + oCarta2.getNombre() + " falló su ataque.";
+			break;
+		case 3:
+			fallaAtaque = fallaAtaque(oCarta3);
+			mensaje = "\n > " + oCarta3.getNombre() + " falló su ataque.";
+			break;
+		case 4:
+			fallaAtaque = fallaAtaque(oCarta4);
+			mensaje = "\n > " + oCarta4.getNombre() + " falló su ataque.";
+			break;
+		}
+
+		if (fallaAtaque == false) {
+			espada.play();
+			habilitaCartas();
+			Thread hilo = new Thread();
+			try {
+				hilo.sleep(1000);
+				hilo.join();
+				int cartaIA1, cartaIA2;
+
+				cartaIA1 = seleccionCartaIA1();
+				cartaIA2 = seleccionCartaIA2();
+
+				ataqueCartas(cartaIA1, cartaIA2);
+				miTurno = true;
+				btnPasarTurno.setDisable(true);
+				lblSituacion.setText("¡ES TU TURNO, ACABA CON ÉL!");
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+				throw e1;
+			}
+
+			switch (compruebaDerrota()) {
+			case "VICTORIA":
+				lblSituacion.setText("ES TU TURNO");
+				// Sumamos uno a la variable rival para indicarle que nos toca el siguiente
+				// rival
+				rival = rival + 1;
+				// Comprueba el rival que toca
+				switch (rival) {
+				case 2:
+					cargarVictoria();
+					try {
+						lblEquipoRival.setText("Derrota a: 'La Brigada Streamer'");
+						cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN",
+								"SYLVANAS");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						throw e1;
+					}
+					resetCartas();
+					miTurno = true;
+					break;
+				case 3:
+					cargarVictoria();
+					try {
+						lblEquipoRival.setText("Derrota a: 'The Green Doramion'");
+						cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						throw e1;
+					}
+					resetCartas();
+					miTurno = true;
+					break;
+				default:
+					cancion.stop();
+					cargarVictoria();
+					((Node) event.getSource()).getScene().getWindow().hide();
+				}
+				break;
+			case "DERROTA":
+				cancion.stop();
+				((Node) event.getSource()).getScene().getWindow().hide();
+				cargarDerrota();
+				break;
+			case "SEGUIMOS":
+				break;
+			}
+		} else {
+			fallo.play();
+			txtAreaHistorial.appendText(mensaje);
+			miTurno = true;
+			habilitaCartas();
+			btnAtacar.setDisable(false);
+			btnPasarTurno.setDisable(true);
+			lblSituacion.setText("EL ENEMIGO FALLO SU ATAQUE. ¡ES TU TURNO!");
+		}
+
+	}
+
+	/**
+	 * Metodo que aplica los ataques, tanto el del usuario como el de la IA
+	 * 
+	 * @param seleccionGrupo1
+	 * @param seleccionGrupo2
+	 */
+	public void ataqueCartas(int seleccionGrupo1, int seleccionGrupo2) {
+
+		switch (seleccionGrupo2) {
+		// JUGADOR CARTA 1
+		case 1:
+			// IA CARTA 1
+			if (seleccionGrupo1 == 1) {
+				vida1 = vida1 - ataque5;
+				carta1Vida.setText(vida1 + "");
+				vida5 = vida5 - ataque1;
+				carta5Vida.setText(vida5 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
+						+ "p. de daño a: " + oCarta1.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
+						+ "p. de daño a: " + oCarta5.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida1) == false) {
+					carta1.setDisable(true);
+					f1.setVisible(true);
+					carta1Vida.setText(vidaCero(vida1) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida5) == false) {
+					carta5.setDisable(true);
+					f5.setVisible(true);
+					carta5Vida.setText(vidaCero(vida5) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 2
+			} else if (seleccionGrupo1 == 2) {
+				vida2 = vida2 - ataque5;
+				carta2Vida.setText(vida2 + "");
+				vida5 = vida5 - ataque2;
+				carta5Vida.setText(vida5 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
+						+ "p. de daño a: " + oCarta2.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
+						+ "p. de daño a: " + oCarta5.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida2) == false) {
+					f2.setVisible(true);
+					carta2.setDisable(true);
+					carta2Vida.setText(vidaCero(vida2) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida5) == false) {
+					f5.setVisible(true);
+					carta5.setDisable(true);
+					carta5Vida.setText(vidaCero(vida5) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 3
+			} else if (seleccionGrupo1 == 3) {
+				vida3 = vida3 - ataque5;
+				carta3Vida.setText(vida3 + "");
+				vida5 = vida5 - ataque3;
+				carta5Vida.setText(vida5 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
+						+ "p. de daño a: " + oCarta3.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
+						+ "p. de daño a: " + oCarta5.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida3) == false) {
+					f3.setVisible(true);
+					carta3.setDisable(true);
+					carta3Vida.setText(vidaCero(vida3) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida5) == false) {
+					f5.setVisible(true);
+					carta5.setDisable(true);
+					carta5Vida.setText(vidaCero(vida5) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 4
+			} else if (seleccionGrupo1 == 4) {
+				vida4 = vida4 - ataque5;
+				carta4Vida.setText(vida4 + "");
+				vida5 = vida5 - ataque4;
+				carta5Vida.setText(vida5 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
+						+ "p. de daño a: " + oCarta4.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
+						+ "p. de daño a: " + oCarta5.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida4) == false) {
+					f4.setVisible(true);
+					carta4.setDisable(true);
+					carta4Vida.setText(vidaCero(vida4) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida5) == false) {
+					f5.setVisible(true);
+					carta5.setDisable(true);
+					carta5Vida.setText(vidaCero(vida5) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
+				}
+			}
+			break;
+		// JUGADOR CARTA 2
+		case 2:
+			// IA CARTA 1
+			if (seleccionGrupo1 == 1) {
+				vida1 = vida1 - ataque6;
+				carta1Vida.setText(vida1 + "");
+				vida6 = vida6 - ataque1;
+				carta6Vida.setText(vida6 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
+						+ "p. de daño a: " + oCarta1.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
+						+ "p. de daño a: " + oCarta6.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida1) == false) {
+					f1.setVisible(true);
+					carta1.setDisable(true);
+					carta1Vida.setText(vidaCero(vida1) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida6) == false) {
+					f6.setVisible(true);
+					carta6.setDisable(true);
+					carta6Vida.setText(vidaCero(vida6) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 2
+			} else if (seleccionGrupo1 == 2) {
+				vida2 = vida2 - ataque6;
+				carta2Vida.setText(vida2 + "");
+				vida6 = vida6 - ataque2;
+				carta6Vida.setText(vida6 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
+						+ "p. de daño a: " + oCarta2.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
+						+ "p. de daño a: " + oCarta6.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida2) == false) {
+					f2.setVisible(true);
+					carta2.setDisable(true);
+					carta2Vida.setText(vidaCero(vida2) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida6) == false) {
+					f6.setVisible(true);
+					carta6.setDisable(true);
+					carta6Vida.setText(vidaCero(vida6) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 3
+			} else if (seleccionGrupo1 == 3) {
+				vida3 = vida3 - ataque6;
+				carta3Vida.setText(vida3 + "");
+				vida6 = vida6 - ataque3;
+				carta6Vida.setText(vida6 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
+						+ "p. de daño a: " + oCarta3.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
+						+ "p. de daño a: " + oCarta6.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida3) == false) {
+					f3.setVisible(true);
+					carta3.setDisable(true);
+					carta3Vida.setText(vidaCero(vida3) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida6) == false) {
+					f6.setVisible(true);
+					carta6.setDisable(true);
+					carta6Vida.setText(vidaCero(vida6) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 4
+			} else if (seleccionGrupo1 == 4) {
+				vida4 = vida4 - ataque6;
+				carta4Vida.setText(vida4 + "");
+				vida6 = vida6 - ataque4;
+				carta6Vida.setText(vida6 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
+						+ "p. de daño a: " + oCarta4.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
+						+ "p. de daño a: " + oCarta6.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida4) == false) {
+					f4.setVisible(true);
+					carta4.setDisable(true);
+					carta4Vida.setText(vidaCero(vida4) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida6) == false) {
+					f6.setVisible(true);
+					carta6.setDisable(true);
+					carta6Vida.setText(vidaCero(vida6) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
+				}
+			}
+			break;
+		// JUGADOR CARTA 3
+		case 3:
+			// IA CARTA 1
+			if (seleccionGrupo1 == 1) {
+				vida1 = vida1 - ataque7;
+				carta1Vida.setText(vida1 + "");
+				vida7 = vida7 - ataque1;
+				carta7Vida.setText(vida7 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
+						+ "p. de daño a: " + oCarta1.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
+						+ "p. de daño a: " + oCarta7.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida1) == false) {
+					f1.setVisible(true);
+					carta1.setDisable(true);
+					carta1Vida.setText(vidaCero(vida1) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida7) == false) {
+					f7.setVisible(true);
+					carta7.setDisable(true);
+					carta7Vida.setText(vidaCero(vida7) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 2
+			} else if (seleccionGrupo1 == 2) {
+				vida2 = vida2 - ataque7;
+				carta2Vida.setText(vida2 + "");
+				vida7 = vida7 - ataque2;
+				carta7Vida.setText(vida7 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
+						+ "p. de daño a: " + oCarta2.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
+						+ "p. de daño a: " + oCarta7.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida2) == false) {
+					f2.setVisible(true);
+					carta2.setDisable(true);
+					carta2Vida.setText(vidaCero(vida2) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida7) == false) {
+					f7.setVisible(true);
+					carta7.setDisable(true);
+					carta7Vida.setText(vidaCero(vida7) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 3
+			} else if (seleccionGrupo1 == 3) {
+				vida3 = vida3 - ataque7;
+				carta3Vida.setText(vida3 + "");
+				vida7 = vida7 - ataque3;
+				carta7Vida.setText(vida7 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
+						+ "p. de daño a: " + oCarta3.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
+						+ "p. de daño a: " + oCarta7.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida3) == false) {
+					f3.setVisible(true);
+					carta3.setDisable(true);
+					carta3Vida.setText(vidaCero(vida3) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida7) == false) {
+					f7.setVisible(true);
+					carta7.setDisable(true);
+					carta7Vida.setText(vidaCero(vida7) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 4
+			} else if (seleccionGrupo1 == 4) {
+				vida4 = vida4 - ataque7;
+				carta4Vida.setText(vida4 + "");
+				vida7 = vida7 - ataque4;
+				carta7Vida.setText(vida7 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
+						+ "p. de daño a: " + oCarta4.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
+						+ "p. de daño a: " + oCarta7.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida4) == false) {
+					f4.setVisible(true);
+					carta4.setDisable(true);
+					carta4Vida.setText(vidaCero(vida4) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida7) == false) {
+					f7.setVisible(true);
+					carta7.setDisable(true);
+					carta7Vida.setText(vidaCero(vida7) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
+				}
+			}
+			break;
+		// JUGADOR CARTA 4
+		case 4:
+			// IA CARTA 1
+			if (seleccionGrupo1 == 1) {
+				vida1 = vida1 - ataque8;
+				carta1Vida.setText(vida1 + "");
+				vida8 = vida8 - ataque1;
+				carta8Vida.setText(vida8 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
+						+ "p. de daño a: " + oCarta1.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
+						+ "p. de daño a: " + oCarta8.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida1) == false) {
+					f1.setVisible(true);
+					carta1.setDisable(true);
+					carta1Vida.setText(vidaCero(vida1) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida8) == false) {
+					f8.setVisible(true);
+					carta8.setDisable(true);
+					carta8Vida.setText(vidaCero(vida8) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 2
+			} else if (seleccionGrupo1 == 2) {
+				vida2 = vida2 - ataque8;
+				carta2Vida.setText(vida2 + "");
+				vida8 = vida8 - ataque2;
+				carta8Vida.setText(vida8 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
+						+ "p. de daño a: " + oCarta2.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
+						+ "p. de daño a: " + oCarta8.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida2) == false) {
+					f2.setVisible(true);
+					carta2.setDisable(true);
+					carta2Vida.setText(vidaCero(vida2) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida8) == false) {
+					f8.setVisible(true);
+					carta8.setDisable(true);
+					carta8Vida.setText(vidaCero(vida8) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 3
+			} else if (seleccionGrupo1 == 3) {
+				vida3 = vida3 - ataque8;
+				carta3Vida.setText(vida3 + "");
+				vida8 = vida8 - ataque3;
+				carta8Vida.setText(vida8 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
+						+ "p. de daño a: " + oCarta3.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
+						+ "p. de daño a: " + oCarta8.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida3) == false) {
+					f3.setVisible(true);
+					carta3.setDisable(true);
+					carta3Vida.setText(vidaCero(vida3) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida8) == false) {
+					f8.setVisible(true);
+					carta8.setDisable(true);
+					carta8Vida.setText(vidaCero(vida8) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
+				}
+				// IA CARTA 4
+			} else if (seleccionGrupo1 == 4) {
+				vida4 = vida4 - ataque8;
+				carta4Vida.setText(vida4 + "");
+				vida8 = vida8 - ataque4;
+				carta8Vida.setText(vida8 + "");
+				// Historial partida
+				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
+						+ "p. de daño a: " + oCarta4.getNombre() + ".");
+				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
+						+ "p. de daño a: " + oCarta8.getNombre() + ".");
+				// Comprueba si siguien vivos
+				if (sigueVivo(vida4) == false) {
+					f4.setVisible(true);
+					carta4.setDisable(true);
+					carta4Vida.setText(vidaCero(vida4) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
+				}
+				if (sigueVivo(vida8) == false) {
+					f8.setVisible(true);
+					carta8.setDisable(true);
+					carta8Vida.setText(vidaCero(vida8) + "");
+					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
+				}
+			}
+			break;
+		default:
+			System.out.println("Ocurrió algún problema");
+		}
+		// Quitar seleccion de los radio button y marco
+		r1.setSelected(false);
+		r2.setSelected(false);
+		r3.setSelected(false);
+		r4.setSelected(false);
+		r5.setSelected(false);
+		r6.setSelected(false);
+		r7.setSelected(false);
+		r8.setSelected(false);
+		marco1.setVisible(false);
+		marco2.setVisible(false);
+		marco3.setVisible(false);
+		marco4.setVisible(false);
+		marco5.setVisible(false);
+		marco6.setVisible(false);
+		marco7.setVisible(false);
+		marco8.setVisible(false);
+		btnAtacar.setDisable(true);
 	}
 
 	/**
@@ -427,6 +992,7 @@ public class ControladorPartida {
 		Optional<ButtonType> result = alert.showAndWait();
 
 		if (result.get() == ButtonType.OK) {
+			cancion.stop();
 			try {
 				((Node) e.getSource()).getScene().getWindow().hide();
 				Stage primaryStage = new Stage();
@@ -434,6 +1000,8 @@ public class ControladorPartida {
 				Scene scene = new Scene(root, 1300, 830);
 				primaryStage.setScene(scene);
 				primaryStage.setResizable(false);
+				primaryStage.initStyle(StageStyle.UNDECORATED);
+				primaryStage.getIcons().add(new Image("/complementos/logo.png"));
 				primaryStage.show();
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -515,408 +1083,10 @@ public class ControladorPartida {
 		String fin = "SEGUIMOS";
 		if (vida5 <= 0 && vida6 <= 0 && vida7 <= 0 && vida8 <= 0) {
 			fin = "DERROTA";
-			System.out.println(fin);
 		} else if (vida1 <= 0 && vida2 <= 0 && vida3 <= 0 && vida4 <= 0) {
 			fin = "VICTORIA";
-			System.out.println(fin);
 		}
 		return fin;
-	}
-
-	/**
-	 * Ataque del jugador
-	 */
-	public void ataqueCartas(int seleccionGrupo1, int seleccionGrupo2) {
-		switch (seleccionGrupo2) {
-		// JUGADOR CARTA 1
-		case 1:
-			// IA CARTA 1
-			if (seleccionGrupo1 == 1) {
-				vida1 = vida1 - ataque5;
-				carta1Vida.setText(vida1 + "");
-				vida5 = vida5 - ataque1;
-				carta5Vida.setText(vida5 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
-						+ "p. de daño a: " + oCarta1.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
-						+ "p. de daño a: " + oCarta5.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida1) == false) {
-					carta1.setDisable(true);
-					carta1Vida.setText(vidaCero(vida1) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida5) == false) {
-					carta5.setDisable(true);
-					carta5Vida.setText(vidaCero(vida5) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 2
-			} else if (seleccionGrupo1 == 2) {
-				vida2 = vida2 - ataque5;
-				carta2Vida.setText(vida2 + "");
-				vida5 = vida5 - ataque2;
-				carta5Vida.setText(vida5 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
-						+ "p. de daño a: " + oCarta2.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
-						+ "p. de daño a: " + oCarta5.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida2) == false) {
-					carta2.setDisable(true);
-					carta2Vida.setText(vidaCero(vida2) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida5) == false) {
-					carta5.setDisable(true);
-					carta5Vida.setText(vidaCero(vida5) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 3
-			} else if (seleccionGrupo1 == 3) {
-				vida3 = vida3 - ataque5;
-				carta3Vida.setText(vida3 + "");
-				vida5 = vida5 - ataque3;
-				carta5Vida.setText(vida5 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
-						+ "p. de daño a: " + oCarta3.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
-						+ "p. de daño a: " + oCarta5.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida3) == false) {
-					carta3.setDisable(true);
-					carta3Vida.setText(vidaCero(vida3) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida5) == false) {
-					carta5.setDisable(true);
-					carta5Vida.setText(vidaCero(vida5) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 4
-			} else if (seleccionGrupo1 == 4) {
-				vida4 = vida4 - ataque5;
-				carta4Vida.setText(vida4 + "");
-				vida5 = vida5 - ataque4;
-				carta5Vida.setText(vida5 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " inflingió " + oCarta5.getAtaque()
-						+ "p. de daño a: " + oCarta4.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
-						+ "p. de daño a: " + oCarta5.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida4) == false) {
-					carta4.setDisable(true);
-					carta4Vida.setText(vidaCero(vida4) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida5) == false) {
-					carta5.setDisable(true);
-					carta5Vida.setText(vidaCero(vida5) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta5.getNombre() + " ha muerto.");
-				}
-			}
-			break;
-		// JUGADOR CARTA 2
-		case 2:
-			// IA CARTA 1
-			if (seleccionGrupo1 == 1) {
-				vida1 = vida1 - ataque6;
-				carta1Vida.setText(vida1 + "");
-				vida6 = vida6 - ataque1;
-				carta6Vida.setText(vida6 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
-						+ "p. de daño a: " + oCarta1.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
-						+ "p. de daño a: " + oCarta6.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida1) == false) {
-					carta1.setDisable(true);
-					carta1Vida.setText(vidaCero(vida1) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida6) == false) {
-					carta6.setDisable(true);
-					carta6Vida.setText(vidaCero(vida6) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 2
-			} else if (seleccionGrupo1 == 2) {
-				vida2 = vida2 - ataque6;
-				carta2Vida.setText(vida2 + "");
-				vida6 = vida6 - ataque2;
-				carta6Vida.setText(vida6 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
-						+ "p. de daño a: " + oCarta2.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
-						+ "p. de daño a: " + oCarta6.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida2) == false) {
-					carta2.setDisable(true);
-					carta2Vida.setText(vidaCero(vida2) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida6) == false) {
-					carta6.setDisable(true);
-					carta6Vida.setText(vidaCero(vida6) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 3
-			} else if (seleccionGrupo1 == 3) {
-				vida3 = vida3 - ataque6;
-				carta3Vida.setText(vida3 + "");
-				vida6 = vida6 - ataque3;
-				carta6Vida.setText(vida6 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
-						+ "p. de daño a: " + oCarta3.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
-						+ "p. de daño a: " + oCarta6.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida3) == false) {
-					carta3.setDisable(true);
-					carta3Vida.setText(vidaCero(vida3) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida6) == false) {
-					carta6.setDisable(true);
-					carta6Vida.setText(vidaCero(vida6) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 4
-			} else if (seleccionGrupo1 == 4) {
-				vida4 = vida4 - ataque6;
-				carta4Vida.setText(vida4 + "");
-				vida6 = vida6 - ataque4;
-				carta6Vida.setText(vida6 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " inflingió " + oCarta6.getAtaque()
-						+ "p. de daño a: " + oCarta4.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
-						+ "p. de daño a: " + oCarta6.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida4) == false) {
-					carta4.setDisable(true);
-					carta4Vida.setText(vidaCero(vida4) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida6) == false) {
-					carta6.setDisable(true);
-					carta6Vida.setText(vidaCero(vida6) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta6.getNombre() + " ha muerto.");
-				}
-			}
-			break;
-		// JUGADOR CARTA 3
-		case 3:
-			// IA CARTA 1
-			if (seleccionGrupo1 == 1) {
-				vida1 = vida1 - ataque7;
-				carta1Vida.setText(vida1 + "");
-				vida7 = vida7 - ataque1;
-				carta7Vida.setText(vida7 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
-						+ "p. de daño a: " + oCarta1.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
-						+ "p. de daño a: " + oCarta7.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida1) == false) {
-					carta1.setDisable(true);
-					carta1Vida.setText(vidaCero(vida1) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida7) == false) {
-					carta7.setDisable(true);
-					carta7Vida.setText(vidaCero(vida7) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 2
-			} else if (seleccionGrupo1 == 2) {
-				vida2 = vida2 - ataque7;
-				carta2Vida.setText(vida2 + "");
-				vida7 = vida7 - ataque2;
-				carta7Vida.setText(vida7 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
-						+ "p. de daño a: " + oCarta2.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
-						+ "p. de daño a: " + oCarta7.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida2) == false) {
-					carta2.setDisable(true);
-					carta2Vida.setText(vidaCero(vida2) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida7) == false) {
-					carta7.setDisable(true);
-					carta7Vida.setText(vidaCero(vida7) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 3
-			} else if (seleccionGrupo1 == 3) {
-				vida3 = vida3 - ataque7;
-				carta3Vida.setText(vida3 + "");
-				vida7 = vida7 - ataque3;
-				carta7Vida.setText(vida7 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
-						+ "p. de daño a: " + oCarta3.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
-						+ "p. de daño a: " + oCarta7.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida3) == false) {
-					carta3.setDisable(true);
-					carta3Vida.setText(vidaCero(vida3) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida7) == false) {
-					carta7.setDisable(true);
-					carta7Vida.setText(vidaCero(vida7) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 4
-			} else if (seleccionGrupo1 == 4) {
-				vida4 = vida4 - ataque7;
-				carta4Vida.setText(vida4 + "");
-				vida7 = vida7 - ataque4;
-				carta7Vida.setText(vida7 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " inflingió " + oCarta7.getAtaque()
-						+ "p. de daño a: " + oCarta4.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
-						+ "p. de daño a: " + oCarta7.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida4) == false) {
-					carta4.setDisable(true);
-					carta4Vida.setText(vidaCero(vida4) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida7) == false) {
-					carta7.setDisable(true);
-					carta7Vida.setText(vidaCero(vida7) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta7.getNombre() + " ha muerto.");
-				}
-			}
-			break;
-		// JUGADOR CARTA 4
-		case 4:
-			// IA CARTA 1
-			if (seleccionGrupo1 == 1) {
-				vida1 = vida1 - ataque8;
-				carta1Vida.setText(vida1 + "");
-				vida8 = vida8 - ataque1;
-				carta8Vida.setText(vida8 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
-						+ "p. de daño a: " + oCarta1.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " inflingió " + oCarta1.getAtaque()
-						+ "p. de daño a: " + oCarta8.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida1) == false) {
-					carta1.setDisable(true);
-					carta1Vida.setText(vidaCero(vida1) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta1.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida8) == false) {
-					carta8.setDisable(true);
-					carta8Vida.setText(vidaCero(vida8) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 2
-			} else if (seleccionGrupo1 == 2) {
-				vida2 = vida2 - ataque8;
-				carta2Vida.setText(vida2 + "");
-				vida8 = vida8 - ataque2;
-				carta8Vida.setText(vida8 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
-						+ "p. de daño a: " + oCarta2.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " inflingió " + oCarta2.getAtaque()
-						+ "p. de daño a: " + oCarta8.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida2) == false) {
-					carta2.setDisable(true);
-					carta2Vida.setText(vidaCero(vida2) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta2.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida8) == false) {
-					carta8.setDisable(true);
-					carta8Vida.setText(vidaCero(vida8) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 3
-			} else if (seleccionGrupo1 == 3) {
-				vida3 = vida3 - ataque8;
-				carta3Vida.setText(vida3 + "");
-				vida8 = vida8 - ataque3;
-				carta8Vida.setText(vida8 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
-						+ "p. de daño a: " + oCarta3.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " inflingió " + oCarta3.getAtaque()
-						+ "p. de daño a: " + oCarta8.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida3) == false) {
-					carta3.setDisable(true);
-					carta3Vida.setText(vidaCero(vida3) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta3.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida8) == false) {
-					carta8.setDisable(true);
-					carta8Vida.setText(vidaCero(vida8) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
-				}
-				// IA CARTA 4
-			} else if (seleccionGrupo1 == 4) {
-				vida4 = vida4 - ataque8;
-				carta4Vida.setText(vida4 + "");
-				vida8 = vida8 - ataque4;
-				carta8Vida.setText(vida8 + "");
-				// Historial partida
-				txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " inflingió " + oCarta8.getAtaque()
-						+ "p. de daño a: " + oCarta4.getNombre() + ".");
-				txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " inflingió " + oCarta4.getAtaque()
-						+ "p. de daño a: " + oCarta8.getNombre() + ".");
-				// Comprueba si siguien vivos
-				if (sigueVivo(vida4) == false) {
-					carta4.setDisable(true);
-					carta4Vida.setText(vidaCero(vida4) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta4.getNombre() + " ha muerto.");
-				}
-				if (sigueVivo(vida8) == false) {
-					carta8.setDisable(true);
-					carta8Vida.setText(vidaCero(vida8) + "");
-					txtAreaHistorial.appendText("\n >" + oCarta8.getNombre() + " ha muerto.");
-				}
-			}
-			break;
-		default:
-			System.out.println("Ocurrió algún problema");
-		}
-		// Quitar seleccion de los radio button y marco
-		r1.setSelected(false);
-		r2.setSelected(false);
-		r3.setSelected(false);
-		r4.setSelected(false);
-		r5.setSelected(false);
-		r6.setSelected(false);
-		r7.setSelected(false);
-		r8.setSelected(false);
-		marco1.setVisible(false);
-		marco2.setVisible(false);
-		marco3.setVisible(false);
-		marco4.setVisible(false);
-		marco5.setVisible(false);
-		marco6.setVisible(false);
-		marco7.setVisible(false);
-		marco8.setVisible(false);
-		btnAtacar.setDisable(true);
 	}
 
 	/**
@@ -967,7 +1137,7 @@ public class ControladorPartida {
 	}
 
 	/**
-	 * Seleccion primera carta IA
+	 * Seleccion segunda carta IA
 	 * 
 	 * @return
 	 */
@@ -1014,9 +1184,12 @@ public class ControladorPartida {
 	}
 
 	/**
-	 * Habilita todas las cartas
+	 * Habilita todas las cartas y quita imagenes como el marco y la imagen de
+	 * muerte
 	 */
-	public void habilitarCartas() {
+	public void resetCartas() {
+
+		// cartas
 		carta1.setDisable(false);
 		carta2.setDisable(false);
 		carta3.setDisable(false);
@@ -1025,13 +1198,63 @@ public class ControladorPartida {
 		carta6.setDisable(false);
 		carta7.setDisable(false);
 		carta8.setDisable(false);
+		// marco
+		marco1.setVisible(false);
+		marco2.setVisible(false);
+		marco3.setVisible(false);
+		marco4.setVisible(false);
+		marco5.setVisible(false);
+		marco6.setVisible(false);
+		marco7.setVisible(false);
+		marco8.setVisible(false);
+		// F
+		f1.setVisible(false);
+		f2.setVisible(false);
+		f3.setVisible(false);
+		f4.setVisible(false);
+		f5.setVisible(false);
+		f6.setVisible(false);
+		f7.setVisible(false);
+		f8.setVisible(false);
+
 		txtAreaHistorial.setText("");
+	}
+
+	/**
+	 * Deshabilita las cartas
+	 */
+	public void deshabilitaCartas() {
+		// cartas
+		carta1.setDisable(true);
+		carta2.setDisable(true);
+		carta3.setDisable(true);
+		carta4.setDisable(true);
+		carta5.setDisable(true);
+		carta6.setDisable(true);
+		carta7.setDisable(true);
+		carta8.setDisable(true);
+	}
+
+	/**
+	 * Habilita las cartas
+	 */
+	public void habilitaCartas() {
+		// cartas
+		carta1.setDisable(false);
+		carta2.setDisable(false);
+		carta3.setDisable(false);
+		carta4.setDisable(false);
+		carta5.setDisable(false);
+		carta6.setDisable(false);
+		carta7.setDisable(false);
+		carta8.setDisable(false);
 	}
 
 	/**
 	 * Carga la pantalla de Victoria
 	 */
 	public void cargarVictoria() {
+		audioVictoria.play();
 		stageVictoria.show();
 	}
 
@@ -1045,6 +1268,7 @@ public class ControladorPartida {
 			Scene scene = new Scene(root, 1300, 830);
 			stageVictoria.setScene(scene);
 			stageVictoria.setResizable(false);
+			stageVictoria.getIcons().add(new Image("/complementos/logo.png"));
 			stageVictoria.initStyle(StageStyle.UNDECORATED);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1055,6 +1279,8 @@ public class ControladorPartida {
 	 * Carga la pantalla de Derrota
 	 */
 	public void cargarDerrota() {
+		audioDerrota.play();
+		cancion.stop();
 		try {
 			Stage primaryStage = new Stage();
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Derrota.fxml"));
@@ -1093,4 +1319,73 @@ public class ControladorPartida {
 		}
 	}
 
+	@FXML
+	public void mute(MouseEvent e) {
+		if (cancion.isPlaying()) {
+			altavozOn.setVisible(false);
+			altavozOff.setVisible(true);
+			cancion.stop();
+		} else if (!cancion.isPlaying()) {
+			altavozOn.setVisible(true);
+			altavozOff.setVisible(false);
+			cancion.play();
+		}
+	}
+
+	/**
+	 * Metodo para probabilidad de fallo de ataque
+	 * 
+	 * @param carta
+	 * @return
+	 */
+	public boolean fallaAtaque(Carta carta) {
+		boolean fallo = false;
+
+		String calidad = carta.getCalidad();
+		int probabilidadAcierto;
+
+		switch (calidad) {
+		// Legendarias siempre aciertan
+		case "LEGENDARIA":
+			fallo = false;
+			break;
+		case "COMUN":
+			probabilidadAcierto = 1 + (int) (Math.random() * 10);
+			if (probabilidadAcierto >= 8) {
+				fallo = true;
+			} else {
+				fallo = false;
+			}
+			break;
+		}
+
+		return fallo;
+	}
+
+	/**
+	 * Permite arrastrar la ventana
+	 * 
+	 * @param panelFather
+	 */
+	public void onDraggedScene(AnchorPane panelFather) {
+		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+
+		panelFather.setOnMousePressed(e -> {
+			Stage stage = (Stage) panelFather.getScene().getWindow();
+			xOffset.set(stage.getX() - e.getScreenX());
+			yOffset.set(stage.getY() - e.getScreenY());
+
+		});
+
+		panelFather.setOnMouseDragged(e -> {
+			Stage stage = (Stage) panelFather.getScene().getWindow();
+			stage.setX(e.getScreenX() + xOffset.get());
+			stage.setY(e.getScreenY() + yOffset.get());
+			panelFather.setStyle("-fx-cursor: CLOSED_HAND;");
+		});
+
+		panelFather.setOnMouseReleased(e -> panelFather.setStyle("-fx-cursor: DEFAULT;"));
+
+	}
 }

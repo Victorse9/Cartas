@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorVictoria">
+<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorVictoria">
    <children>
       <ImageView fitHeight="859.0" fitWidth="1317.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -29,5 +29,10 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
+      <Button fx:id="btnVictoriaSalir" layoutX="1090.0" layoutY="736.0" mnemonicParsing="false" onAction="#salir" opacity="0.8" prefHeight="70.0" prefWidth="180.0" style="-fx-background-color: black;" text="SALIR" textFill="WHITE" visible="false">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

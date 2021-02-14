@@ -11,11 +11,11 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorGuia">
+<AnchorPane fx:id="container" prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorGuia">
    <children>
       <Pane fx:id="panel1" prefHeight="830.0" prefWidth="1300.0">
          <children>
-            <ImageView fitHeight="929.0" fitWidth="1315.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="852.0" fitWidth="1326.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../complementos/fondoMenu.jpg" />
                </image>
@@ -117,9 +117,9 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="panel2" prefHeight="830.0" prefWidth="1300.0" visible="false">
+      <Pane fx:id="panel2" prefHeight="830.0" prefWidth="1300.0">
          <children>
-            <ImageView fitHeight="929.0" fitWidth="1315.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="855.0" fitWidth="1333.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../complementos/fondoMenu.jpg" />
                </image>
@@ -129,17 +129,17 @@
                   <Font name="System Bold" size="48.0" />
                </font>
             </Label>
-            <Label layoutX="168.0" layoutY="249.0" text="&gt; Existen 2 rarezas de cartas: Legendaria y común.">
+            <Label layoutX="168.0" layoutY="221.0" text="&gt; Existen 2 rarezas de cartas: Legendaria y común.">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="168.0" layoutY="300.0" text="&gt; Las cartas legendarias son mas poderosas.">
+            <Label layoutX="168.0" layoutY="272.0" text="&gt; Las cartas legendarias son mas poderosas.">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="192.0" layoutY="204.0" text="CARTA">
+            <Label layoutX="192.0" layoutY="176.0" text="CARTA">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
@@ -149,12 +149,12 @@
                   <Image url="@../complementos/flechaAtras.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="256.0" fitWidth="269.0" layoutX="220.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="256.0" fitWidth="269.0" layoutX="198.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/varian.png" />
                </image>
             </ImageView>
-            <Circle layoutX="241.0" layoutY="604.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+            <Circle layoutX="219.0" layoutY="671.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
                <fill>
                   <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
                      <stops>
@@ -172,7 +172,7 @@
                   </LinearGradient>
                </fill>
             </Circle>
-            <Circle layoutX="383.0" layoutY="608.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+            <Circle layoutX="361.0" layoutY="675.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
                <fill>
                   <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
                      <stops>
@@ -190,42 +190,42 @@
                   </LinearGradient>
                </fill>
             </Circle>
-            <Label fx:id="carta1Vida" layoutX="372.0" layoutY="585.0" text="6">
+            <Label fx:id="carta1Vida" layoutX="350.0" layoutY="652.0" text="6">
                <font>
                   <Font name="Arial" size="40.0" />
                </font>
             </Label>
-            <Label fx:id="carta1Ataque" layoutX="230.0" layoutY="581.0" text="4">
+            <Label fx:id="carta1Ataque" layoutX="208.0" layoutY="648.0" text="4">
                <font>
                   <Font name="Arial" size="40.0" />
                </font>
             </Label>
-            <ImageView fitHeight="70.0" fitWidth="242.0" layoutX="280.0" layoutY="494.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="242.0" layoutX="258.0" layoutY="561.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../complementos/flechaIzquierda.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="65.0" fitWidth="22.0" layoutX="225.0" layoutY="613.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="65.0" fitWidth="22.0" layoutX="203.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../complementos/flechaArriba.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="65.0" fitWidth="22.0" layoutX="384.0" layoutY="613.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="65.0" fitWidth="22.0" layoutX="362.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../complementos/flechaArriba.png" />
                </image>
             </ImageView>
-            <Label layoutX="368.0" layoutY="677.0" text="VIDA">
+            <Label layoutX="346.0" layoutY="744.0" text="VIDA">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="190.0" layoutY="677.0" text="ATAQUE">
+            <Label layoutX="168.0" layoutY="744.0" text="ATAQUE">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="463.0" layoutY="509.0" text="RAREZA">
+            <Label layoutX="441.0" layoutY="576.0" text="RAREZA">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
@@ -250,6 +250,16 @@
                   <Image url="@../complementos/atrasMenu.png" />
                </image>
             </ImageView>
+            <Label layoutX="168.0" layoutY="325.0" text="&gt; Las cartas comunes tienen un 70 % probabilidad de acierto,">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="192.0" layoutY="368.0" text="mientras que las legendarias el 100%">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

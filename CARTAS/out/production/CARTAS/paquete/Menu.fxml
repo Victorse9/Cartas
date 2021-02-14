@@ -5,35 +5,61 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControllerMenu">
+<AnchorPane fx:id="container" prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControllerMenu">
    <children>
       <ImageView fitHeight="889.0" fitWidth="1337.0" layoutX="-23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../complementos/fondo1.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="480.0" layoutY="36.0" opacity="0.79" text="CUTRESTONE" textFill="#e5e132">
+      <Button layoutX="590.0" layoutY="466.0" mnemonicParsing="false" onAction="#jugar" prefHeight="70.0" prefWidth="157.0" style="-fx-background-color: black;" text="JUGAR" textFill="#fcfcfc">
          <font>
-            <Font name="Oswald Regular" size="65.0" />
-         </font>
-      </Label>
-      <Button layoutX="595.0" layoutY="311.0" mnemonicParsing="false" onAction="#jugar" prefHeight="40.0" prefWidth="113.0" text="JUGAR">
-         <font>
-            <Font name="Cooper Black" size="12.0" />
+            <Font name="System Bold Italic" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="597.0" layoutY="478.0" mnemonicParsing="false" onAction="#botonGuia" prefHeight="40.0" prefWidth="113.0" text="GUIA">
+      <Button layoutX="592.0" layoutY="560.0" mnemonicParsing="false" onAction="#botonGuia" prefHeight="70.0" prefWidth="157.0" style="-fx-background-color: black;" text="GUÍA" textFill="WHITE">
          <font>
-            <Font name="Cooper Black" size="12.0" />
+            <Font name="System Bold Italic" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btnVolumen" layoutX="1197.0" layoutY="738.0" mnemonicParsing="false" onAction="#volumen" prefHeight="65.0" prefWidth="79.0" />
-      <ImageView fitHeight="65.0" fitWidth="67.0" layoutX="1237.0" layoutY="14.0" onMouseClicked="#cerrarApp" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="301.0" fitWidth="818.0" layoutX="321.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/placaMenu.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="65.0" fitWidth="67.0" layoutX="1229.0" layoutY="14.0" onMouseClicked="#cerrarApp" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../complementos/cierre.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="altavozOn" fitHeight="74.0" fitWidth="67.0" layoutX="1192.0" layoutY="742.0" onMouseClicked="#volumen" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/altavoz.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="altavozOff" fitHeight="74.0" fitWidth="67.0" layoutX="1195.0" layoutY="742.0" onMouseClicked="#volumen" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../complementos/altavozoff.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="492.0" layoutY="214.0" text="CUTRESTONE" textFill="#f2c04c">
+         <font>
+            <Font name="Consolas Bold" size="64.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="344.0" fitWidth="315.0" layoutX="119.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/duende.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="344.0" fitWidth="252.0" layoutX="956.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/duende2.png" />
+         </image>
+      </ImageView>
+      <Line endX="81.0" layoutX="1228.0" layoutY="466.0" startX="-82.0" />
    </children>
 </AnchorPane>

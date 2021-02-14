@@ -1,79 +1,62 @@
 package paquete;
 
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import javafx.stage.StageStyle;
 
 public class ControllerMenu {
 
 	@FXML
-	Button btnVolumen;
+	private Button btnVolumen;
 	@FXML
-	AudioClip audio = new AudioClip("file:sonido/audio.mp3");
+	private AudioClip audio = new AudioClip("file:sonido/audio.mp3");
 	@FXML
-	Button btnJugar;
+	private Button btnJugar;
+	@FXML
+	private ImageView altavozOn, altavozOff;
+	@FXML
+	private AnchorPane container;
 
+	@FXML
 	public void initialize() {
 		audio.play();
-		URL url = getClass().getResource("/complementos/altavoz.png");
-		Image imagenAltavoz = new Image(url.toString(), 70, 80, false, true);
-		btnVolumen.setGraphic((new ImageView(imagenAltavoz)));
+		onDraggedScene(container);
 	}
 
 	@FXML
-	public void volumen(ActionEvent e) {
+	public void volumen(MouseEvent e) {
 		if (audio.isPlaying()) {
 			audio.stop();
-			URL url = getClass().getResource("/complementos/altavozoff.png");
-			Image imagenAltavoz = new Image(url.toString(), 70, 80, false, true);
-			btnVolumen.setGraphic((new ImageView(imagenAltavoz)));
+			altavozOn.setVisible(false);
+			altavozOff.setVisible(true);
 		} else {
 			audio.play();
-			URL url = getClass().getResource("/complementos/altavoz.png");
-			Image imagenAltavoz = new Image(url.toString(), 70, 80, false, true);
-			btnVolumen.setGraphic((new ImageView(imagenAltavoz)));
+			altavozOn.setVisible(true);
+			altavozOff.setVisible(false);
 		}
 
 	}
 
-	public void mostrarCartas(ActionEvent event) {
-		Node source = (Node) event.getSource();
-		Stage stage = (Stage) source.getScene().getWindow();
-		stage.close();
-		try {
-			Stage primaryStage = new Stage();
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("MostrarCartas.fxml"));
-			Scene scene = new Scene(root, 1300, 830);
-			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
-			primaryStage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	/**
+	 * Boton jugar
+	 * 
+	 * @param event
+	 */
 	public void jugar(ActionEvent event) {
 		((Node) event.getSource()).getScene().getWindow().hide();
 		Stage primaryStage = null;
@@ -84,13 +67,21 @@ public class ControllerMenu {
 			Scene scene = new Scene(root, 1300, 830);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.getIcons().add(new Image("/complementos/logo.png"));
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Guia juego
+	 * 
+	 * @param event
+	 */
 	public void botonGuia(ActionEvent event) {
+		audio.stop();
 		((Node) event.getSource()).getScene().getWindow().hide();
 		try {
 			Stage primaryStage = new Stage();
@@ -98,6 +89,8 @@ public class ControllerMenu {
 			Scene scene = new Scene(root, 1300, 830);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
+			primaryStage.getIcons().add(new Image("/complementos/logo.png"));
+			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,5 +120,32 @@ public class ControllerMenu {
 		} else {
 
 		}
+	}
+
+	/**
+	 * Permite arrastrar la ventana
+	 * 
+	 * @param panelFather
+	 */
+	public void onDraggedScene(AnchorPane panelFather) {
+		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+
+		panelFather.setOnMousePressed(e -> {
+			Stage stage = (Stage) panelFather.getScene().getWindow();
+			xOffset.set(stage.getX() - e.getScreenX());
+			yOffset.set(stage.getY() - e.getScreenY());
+
+		});
+
+		panelFather.setOnMouseDragged(e -> {
+			Stage stage = (Stage) panelFather.getScene().getWindow();
+			stage.setX(e.getScreenX() + xOffset.get());
+			stage.setY(e.getScreenY() + yOffset.get());
+			panelFather.setStyle("-fx-cursor: CLOSED_HAND;");
+		});
+
+		panelFather.setOnMouseReleased(e -> panelFather.setStyle("-fx-cursor: DEFAULT;"));
+
 	}
 }
