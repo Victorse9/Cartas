@@ -68,8 +68,10 @@ public class ControladorPartida {
 	@FXML
 	private AnchorPane container;
 
+
 	@FXML
 	public void initialize() throws Exception {
+
 		// Permite arrastrar la ventana de la app
 		this.onDraggedScene(this.container);
 		// Inicia la cancion del modo jugar
@@ -1287,6 +1289,7 @@ public class ControladorPartida {
 			Scene scene = new Scene(root, 1300, 830);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
+			primaryStage.getIcons().add(new Image("/complementos/logo.png"));
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.show();
 		} catch (Exception e) {
