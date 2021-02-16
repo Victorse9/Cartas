@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.sun.prism.paint.Color;
-
 import conexion.Carta;
 import conexion.Consulta;
 import javafx.event.ActionEvent;
@@ -26,7 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -67,11 +64,40 @@ public class ControladorPartida {
 	private AudioClip fallo = new AudioClip("file:sonido/fallo.mp3");
 	@FXML
 	private AnchorPane container;
+	private String eleccion, nombre1, nombre2, nombre3, nombre4;
 
+	public ControladorPartida(String eleccion) {
+		this.eleccion = eleccion;
+	}
 
 	@FXML
 	public void initialize() throws Exception {
 
+		ControladorEligeMazo elige = new ControladorEligeMazo();
+
+		// Guarda la eleccion del mazo.
+		switch (eleccion) {
+		case "SELECCIONAR 'GRUPO HEARTHSTONE'":
+			nombre1 = "ALAMUERTE";
+			nombre2 = "VADIN";
+			nombre3 = "CTHUN";
+			nombre4 = "BOOM";
+			break;
+
+		case "SELECCIONAR 'GRUPO WOW'":
+			nombre1 = "GARROSH";
+			nombre2 = "MAIEV";
+			nombre3 = "VARIAN";
+			nombre4 = "SYLVANAS";
+			break;
+
+		case "SELECCIONAR 'TERRORISTAS DAM'":
+			nombre1 = "MAESO";
+			nombre2 = "TONY";
+			nombre3 = "ALEX";
+			nombre4 = "DAVID";
+			break;
+		}
 		// Permite arrastrar la ventana de la app
 		this.onDraggedScene(this.container);
 		// Inicia la cancion del modo jugar
@@ -83,8 +109,7 @@ public class ControladorPartida {
 		lblEquipoRival.setText("Derrota a: 'La banda de Randall'");
 		// Carga el primer rival
 		try {
-			cargaCartas("ED, EDD Y EDDY", "MIKE WAZOWSKY", "OSO YOGUI", "RANDALL", "GARROSH", "MAIEV", "VARIAN",
-					"SYLVANAS");
+			cargaCartas("ED, EDD Y EDDY", "MIKE WAZOWSKY", "OSO YOGUI", "RANDALL", nombre1, nombre2, nombre3, nombre4);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -144,8 +169,7 @@ public class ControladorPartida {
 					cargarVictoria();
 					lblEquipoRival.setText("Derrota a: 'La Brigada Streamer'");
 					try {
-						cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN",
-								"SYLVANAS");
+						cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", nombre1, nombre2, nombre3, nombre4);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 						throw e1;
@@ -157,7 +181,7 @@ public class ControladorPartida {
 					cargarVictoria();
 					lblEquipoRival.setText("Derrota a: 'The Green Doramion'");
 					try {
-						cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+						cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", nombre1, nombre2, nombre3, nombre4);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 						throw e1;

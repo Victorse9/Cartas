@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.ControladorEligeMazo">
+   <children>
+      <ImageView fitHeight="841.0" fitWidth="1315.0" layoutX="-1.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/fondo1.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2188ff59" height="261.0" layoutX="365.0" layoutY="18.0" stroke="BLACK" strokeType="INSIDE" width="741.0" />
+      <ImageView fitHeight="150.0" fitWidth="67.0" layoutX="1219.0" layoutY="14.0" onMouseClicked="#cerrarApp" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/cierre.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="67.0" layoutX="1141.0" layoutY="14.0" onMouseClicked="#btnVolver" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../complementos/atrasMenu.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="carta1A" fitHeight="228.0" fitWidth="140.0" layoutX="392.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="413.0" layoutY="203.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="517.0" layoutY="203.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque1A" layoutX="402.0" layoutY="180.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida1A" layoutX="506.0" layoutY="180.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="32.0" layoutY="14.0" prefHeight="53.0" prefWidth="306.0" text="SELECCIÓN DE MAZO" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn3" layoutX="364.0" layoutY="231.0" mnemonicParsing="false" onAction="#irPartida" prefHeight="47.0" prefWidth="741.0" style="-fx-background-color: black;" text="SELECCIONAR 'GRUPO HEARTHSTONE'" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font></Button>
+      <ImageView fx:id="carta2A" fitHeight="228.0" fitWidth="140.0" layoutX="573.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="594.0" layoutY="203.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="698.0" layoutY="203.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque2A" layoutX="583.0" layoutY="180.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida2A" layoutX="687.0" layoutY="180.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta3A" fitHeight="228.0" fitWidth="140.0" layoutX="754.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="775.0" layoutY="204.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="879.0" layoutY="204.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque3A" layoutX="764.0" layoutY="181.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida3A" layoutX="868.0" layoutY="181.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta4A" fitHeight="228.0" fitWidth="140.0" layoutX="935.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="956.0" layoutY="204.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1060.0" layoutY="204.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque4A" layoutX="945.0" layoutY="181.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida4A" layoutX="1049.0" layoutY="181.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2188ff59" height="261.0" layoutX="365.0" layoutY="286.0" stroke="BLACK" strokeType="INSIDE" width="741.0" />
+      <ImageView fx:id="carta1B" fitHeight="228.0" fitWidth="140.0" layoutX="392.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="413.0" layoutY="471.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="517.0" layoutY="471.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque1B" layoutX="402.0" layoutY="448.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida1B" layoutX="506.0" layoutY="448.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta2B" fitHeight="228.0" fitWidth="140.0" layoutX="573.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="594.0" layoutY="471.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="698.0" layoutY="471.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque2B" layoutX="583.0" layoutY="448.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida2B" layoutX="687.0" layoutY="448.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta3B" fitHeight="228.0" fitWidth="140.0" layoutX="754.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="775.0" layoutY="472.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="879.0" layoutY="472.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque3B" layoutX="764.0" layoutY="449.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida3B" layoutX="868.0" layoutY="449.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta4B" fitHeight="228.0" fitWidth="140.0" layoutX="935.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="956.0" layoutY="472.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1060.0" layoutY="472.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque4B" layoutX="945.0" layoutY="449.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida4B" layoutX="1049.0" layoutY="449.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2188ff59" height="261.0" layoutX="365.0" layoutY="555.0" stroke="BLACK" strokeType="INSIDE" width="741.0" />
+      <ImageView fx:id="carta1C" fitHeight="228.0" fitWidth="140.0" layoutX="392.0" layoutY="558.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="413.0" layoutY="740.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="517.0" layoutY="740.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque1C" layoutX="402.0" layoutY="717.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida1C" layoutX="506.0" layoutY="717.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta2C" fitHeight="228.0" fitWidth="140.0" layoutX="573.0" layoutY="558.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="594.0" layoutY="740.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="698.0" layoutY="740.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque2C" layoutX="583.0" layoutY="717.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida2C" layoutX="687.0" layoutY="717.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta3C" fitHeight="228.0" fitWidth="140.0" layoutX="754.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="775.0" layoutY="741.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="879.0" layoutY="741.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque3C" layoutX="764.0" layoutY="718.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida3C" layoutX="868.0" layoutY="718.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="carta4C" fitHeight="228.0" fitWidth="140.0" layoutX="935.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/knekro.png" />
+         </image>
+      </ImageView>
+      <Circle layoutX="956.0" layoutY="741.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="0.09999999999999998" startX="0.023809523809523808" startY="0.8">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8289473652839661" green="0.7690789699554443" blue="0.23026315867900848" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="1060.0" layoutY="741.0" radius="21.0" stroke="BLACK" strokeType="INSIDE">
+         <fill>
+            <LinearGradient startX="0.04285714285714286" startY="0.6714285714285715">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9078947305679321" green="0.31839364767074585" blue="0.21436403691768646" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Circle>
+      <Label fx:id="ataque4C" layoutX="945.0" layoutY="718.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="vida4C" layoutX="1049.0" layoutY="718.0" text="8">
+         <font>
+            <Font name="Arial" size="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn2" layoutX="365.0" layoutY="499.0" mnemonicParsing="false" onAction="#irPartida" prefHeight="47.0" prefWidth="741.0" style="-fx-background-color: black;" text="SELECCIONAR 'GRUPO WOW'" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font></Button>
+      <Button fx:id="btn1" layoutX="364.0" layoutY="768.0" mnemonicParsing="false" onAction="#irPartida" prefHeight="47.0" prefWidth="741.0" style="-fx-background-color: black;" text="SELECCIONAR 'TERRORISTAS DAM'" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font></Button>
+      <Label layoutX="232.0" layoutY="122.0" text="FÁCIL &gt;">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="213.0" layoutY="372.0" text="NORMAL &gt;">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="224.0" layoutY="640.0" text="DIFÍCIL &gt;">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="176.0" layoutY="399.0" text="(Recomendado)">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

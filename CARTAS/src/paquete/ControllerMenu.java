@@ -63,7 +63,7 @@ public class ControllerMenu {
 		try {
 			audio.stop();
 			primaryStage = new Stage();
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Partida.fxml"));
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("EligeMazo.fxml"));
 			Scene scene = new Scene(root, 1300, 830);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
