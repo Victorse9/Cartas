@@ -302,8 +302,8 @@ public class ControladorPartida {
 					cargarVictoria();
 					try {
 						lblEquipoRival.setText("Derrota a: 'La Brigada Streamer'");
-						cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", "GARROSH", "MAIEV", "VARIAN",
-								"SYLVANAS");
+						cargaCartas("ELMILLOR", "EL XOKAS", "ORSLOK", "KNEKRO", nombre1, nombre2, nombre3,
+								nombre4);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 						throw e1;
@@ -315,7 +315,7 @@ public class ControladorPartida {
 					cargarVictoria();
 					try {
 						lblEquipoRival.setText("Derrota a: 'The Green Doramion'");
-						cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", "GARROSH", "MAIEV", "VARIAN", "SYLVANAS");
+						cargaCartas("WOLFANG", "TENSE", "STAXX", "FLIPIN", nombre1, nombre2, nombre3, nombre4);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 						throw e1;
